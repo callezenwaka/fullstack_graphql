@@ -1,8 +1,9 @@
 import { HOSTNAME } from '../services';
+import Club from "../types/Club";
 
-const getClubs = async (state: { isLoading: boolean; }) => {
+const getClubs = async (): Promise<Club[]> => {
 
-  state.isLoading = true;
+  // state.isLoading = true;
 
   const options = {
     method: "POST",
@@ -24,7 +25,7 @@ const getClubs = async (state: { isLoading: boolean; }) => {
   const response = await fetch(HOSTNAME, options);
   const text = await response.text();
   const jsonRes = JSON.parse(text);
-  state.isLoading = false;
+  // state.isLoading = false;
   return jsonRes.data.clubs;
 }
 

@@ -1,9 +1,7 @@
 import { HOSTNAME } from '../services';
 
-const addClub = async (state: { isLoading: boolean; club: { name: any; league: any; }; }) => {
-  state.isLoading = true;
-  console.log(`name: ${state.club.name}, league: ${state.club.league}`);
-
+const addClub = async (club: { name: string; league: string; }): Promise<any> => {
+  console.log(club);
   const options = {
     method: "POST",
     headers: {
@@ -12,7 +10,7 @@ const addClub = async (state: { isLoading: boolean; club: { name: any; league: a
     body: JSON.stringify({
       query: `
         mutation {
-          addClub(name: "${state.club.name}", league: "${state.club.league}"){
+          addClub(name: "${club.name}", league: "${club.league}"){
             name 
             league
             id
@@ -25,14 +23,14 @@ const addClub = async (state: { isLoading: boolean; club: { name: any; league: a
   const response = await fetch(HOSTNAME, options);
   // console.log(response);
   const text = await response.text();
-  const jsonRes = JSON.parse(text);
-  console.log(jsonRes);
-  state.isLoading = false;
+  const res = JSON.parse(text);
+  console.log(res);
+  // state.isLoading = false;
   // return jsonRes.data.clubs;
+  return;
 }
 
-const deleteClub = async (state: { isLoading: boolean; }, id: any) => {
-  state.isLoading = true;
+const deleteClub = async (id: number): Promise<any> => {
 
   const options = {
     method: "POST",
@@ -51,13 +49,13 @@ const deleteClub = async (state: { isLoading: boolean; }, id: any) => {
   };
   const response = await fetch(HOSTNAME, options);
   console.log("Delete item - ", response);
-  state.isLoading = false;
-  return response;
+  // state.isLoading = false;
   // return response.data.clubs;
+  return;
 }
 
-const updateClub = async (state: { isLoading: boolean; club: { name: any; league: any; }; }, id: any) => {
-  state.isLoading = true;
+const updateClub = async (club: { name: string; league: string; }, id: number): Promise<any> => {
+  // state.isLoading = true;
 
   const options = {
     method: "POST",
@@ -67,7 +65,7 @@ const updateClub = async (state: { isLoading: boolean; club: { name: any; league
     body: JSON.stringify({
       query: `
         mutation{
-          updateClub(id:"${id}", name:"${state.club.name}", league:"${state.club.league}"){
+          updateClub(id:"${id}", name:"${club.name}", league:"${club.league}"){
             id
             name
             league
@@ -78,8 +76,9 @@ const updateClub = async (state: { isLoading: boolean; club: { name: any; league
   };
   const response = await fetch(HOSTNAME, options);
   console.log("Update clubs ", response);
-  state.isLoading = false;
+  // state.isLoading = false;
   // return jsonRes.data.clubs;
+  return;
 }
 
 export { addClub, deleteClub, updateClub };
