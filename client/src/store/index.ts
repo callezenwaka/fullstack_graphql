@@ -14,6 +14,9 @@ export default createStore({
     SET_CLUBS(state, clubs) {
       state.clubs = clubs;
     },
+    SET_CLUB(state, club) {
+      state.club = club;
+    },
   },
   actions: {
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home mt-4 md:mt-8 md:w-3/5 md:mx-auto">
     <Club></Club>
   </div>
 </template>

@@ -2,11 +2,11 @@ import 'dotenv/config';
 
 import express, {Application, Request, Response, NextFunction} from "express";
 import cors from "cors";
-import os from "os";
+import network from "./network";
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLSchema } from 'graphql';
-import RootQuery from './graphql/shcema';
-import RootMutation from './graphql/resolvers';
+import { RootQuery, RootMutation } from './graphql/shcema/resolvers';
+// import RootMutation from './graphql/resolvers';
 
 const schema = new GraphQLSchema({query: RootQuery, mutation: RootMutation});
 const app: Application = express();
@@ -32,7 +32,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
-const network = os?.networkInterfaces()?.en0?.find(elm => elm.family=='IPv4')?.address;
 // Set up port and start the server
 app.listen( process.env.PORT, () => {
   console.log(`Server running at:`);

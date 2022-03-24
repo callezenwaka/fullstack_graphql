@@ -1,13 +1,12 @@
 import { HOSTNAME } from '../services';
+import Club from "../types/Club";
+import axios from "axios";
 
-const addClub = async (club: { name: string; league: string; }): Promise<any> => {
-  console.log(club);
-  const options = {
+const addClub = async (club: { name: string; league: string; }): Promise<Club> => {
+  const {data} = await axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    url: `${HOSTNAME}`,
+    data: JSON.stringify({
       query: `
         mutation {
           addClub(name: "${club.name}", league: "${club.league}"){
@@ -18,54 +17,43 @@ const addClub = async (club: { name: string; league: string; }): Promise<any> =>
         }
       `
     }),
-  };
-
-  const response = await fetch(HOSTNAME, options);
-  // console.log(response);
-  const text = await response.text();
-  const res = JSON.parse(text);
-  console.log(res);
-  // state.isLoading = false;
-  // return res.data.clubs;
-  return;
+    headers: {
+      'content-type': 'application/json',
+      'Accept': 'application/json',
+    }
+  });
+  return data;
 }
 
-const deleteClub = async (id: number): Promise<any> => {
-
-  const options = {
+const deleteClub = async (id: number): Promise<Club> => {
+  const {data} = await axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    url: `${HOSTNAME}`,
+    data: JSON.stringify({
       query: `
-        mutation{
+        mutation {
           deleteClub(id:"${id}"){
             name
           }
         }
       `
     }),
-  };
-  const response = await fetch(HOSTNAME, options);
-  console.log("Delete item - ", response);
-  // state.isLoading = false;
-  // return response.data.clubs;
-  return;
+    headers: {
+      'content-type': 'application/json',
+      'Accept': 'application/json',
+    }
+  });
+  return data;
 }
 
-const updateClub = async (club: { name: string; league: string; }, id: number): Promise<any> => {
-  // state.isLoading = true;
-
-  const options = {
+const updateClub = async (club: Club): Promise<Club> => {
+  const {data} = await axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+    url: `${HOSTNAME}`,
+    data: JSON.stringify({
       query: `
         mutation{
-          updateClub(id:"${id}", name:"${club.name}", league:"${club.league}"){
+          updateClub(id:"${club.id}", name:"${club.name}", league:"${club.league}"){
             id
             name
             league
@@ -73,12 +61,12 @@ const updateClub = async (club: { name: string; league: string; }, id: number): 
         }
       `
     }),
-  };
-  const response = await fetch(HOSTNAME, options);
-  console.log("Update clubs ", response);
-  // state.isLoading = false;
-  // return jsonRes.data.clubs;
-  return;
+    headers: {
+      'content-type': 'application/json',
+      'Accept': 'application/json',
+    }
+  });
+  return data;
 }
 
 export { addClub, deleteClub, updateClub };
