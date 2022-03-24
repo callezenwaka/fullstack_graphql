@@ -4,8 +4,9 @@
   "description": "graphql server",
   "main": "index.ts",
   "scripts": {
-    "start": "node index.ts",
-    "dev": "nodemon -r dotenv/config index.ts",
+    "dev": "nodemon -r dotenv/config src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc",
     "test": "test"
   },
   "author": "callisezenwaka@gmail.com",

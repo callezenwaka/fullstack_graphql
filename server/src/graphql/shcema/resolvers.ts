@@ -4,7 +4,7 @@ import { seedData } from '../../seedData';
 
 const clubs = {
 	name: "Clubs",
-	description: "This is the all club",
+	description: "This request gets all club",
 	type: new GraphQLList(ClubType),
 	resolve: async (parent: any, args: any) => {
 		const clubs = seedData;
@@ -14,7 +14,7 @@ const clubs = {
 
 const singleClub = {
 	name: "singleClub",
-	description: "This is the single club",
+	description: "This request gets a single club",
 	type: ClubType,
 	args: { id: { type: GraphQLID } },
 	resolve: async (parent: any, args: { id: number; }) => {
@@ -26,6 +26,7 @@ const singleClub = {
 
 const addClub = {
   name: "addClub",
+	description: "This requests add a single club",
   type: ClubType,
   args: { name: { type: GraphQLString }, league: { type: GraphQLString } },
   resolve: async (parent: any, args: { name: string; league: string; }) => {
@@ -37,6 +38,7 @@ const addClub = {
 
 const deleteClub = {
   name: "deleteClub",
+	description: "This request deletes a single club",
   type: ClubType,
   args: { id: { type: GraphQLID } },
   resolve: async (parent: any, args: { id: number; }) => {
@@ -49,6 +51,7 @@ const deleteClub = {
 
 const updateClub = {
   name: "updatelub",
+	description: "This request updates a single club",
   type: ClubType,
   args: {
     id: { type: GraphQLID },
